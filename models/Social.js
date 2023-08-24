@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const {Schema, mongoose} = require('mongoose');
 
 var validateEmail = function(email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -24,18 +24,18 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
+const reactionSchema = new mongoose.Schema({
+  reactionId: { type: Schema.Types.ObjectId, default: null },
+  reactionBody: {type: String, required: true, maxLength: 280},
+  username: {type: String, required: true, },
+  createdAt: {type: Date, default: Date.now, timestamps: true},
+});
+
 const thoughtSchema = new mongoose.Schema({
   thoughtText: { type: String, required: true, minLength: 1, maxLength: 280},
   createdAt: {type: Date, default: Date.now, timestamps: true},
   username: {type: String, required: true, },
   reactions: [reactionSchema]
-});
-
-const reactionSchema = new mongoose.Schema({
-  reactionId: { type: Schema.Types.ObjectId, default: ObjectId },
-  reactionBody: {type: String, required: true, maxLength: 280},
-  username: {type: String, required: true, },
-  createdAt: {type: Date, default: Date.now, timestamps: true},
 });
 
 const User = mongoose.model('User', userSchema);
