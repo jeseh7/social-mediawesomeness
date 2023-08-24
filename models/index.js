@@ -1,3 +1,3 @@
-const Department = require('./Social');
+const {User, Thought} = require('./Social');
 
-module.exports = { Department };
+module.exports = { User, Thought };
