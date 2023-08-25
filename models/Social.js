@@ -6,20 +6,20 @@ var validateEmail = function(email) {
 };
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, unique: true, required: true, trim: true },
-  email: {type: String, required: true, unique: true, lowercase: true, 
+  username: { type: String, unique: true, required: 'invalid username', trim: true },
+  email: {type: String, required: 'invalid email', unique: true, lowercase: true, 
     validate: [validateEmail, 'Please fill a valid email address'], 
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']},
   thoughts: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'thoughtSchema',
+      ref: 'thought',
     },
   ],
   friends: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'userSchema',
+      ref: 'user',
     },
   ],
 });
@@ -38,7 +38,7 @@ const thoughtSchema = new mongoose.Schema({
   reactions: [reactionSchema]
 });
 
-const User = mongoose.model('User', userSchema);
-const Thought = mongoose.model('Thought', thoughtSchema);
+const User = mongoose.model('user', userSchema);
+const Thought = mongoose.model('thought', thoughtSchema);
 
 module.exports = {User, Thought};

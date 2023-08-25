@@ -1,4 +1,4 @@
-const User = require('../models/Social');
+const { User } = require('../models/Social');
 
 module.exports = {
   async getUsers(req, res) {
@@ -29,6 +29,25 @@ module.exports = {
       res.json(dbUserData);
     } catch (err) {
       res.status(500).json(err);
+      console.log("Something went wrong!!")
     }
   },
+  async updateUser(req, res) {
+    try {
+      const dbUserData = await User.findOneAndUpdate(req.body);
+      res.json(dbUserData);
+    } catch (err) {
+      res.status(500).json(err);
+      console.log("Something went wrong!!")
+    }
+  },
+  async deleteUser(req, res) {
+    try {
+      const dbUserData = await User.deleteOne(req.body);
+      res.json(dbUserData);
+    } catch (err) {
+      res.status(500).json(err);
+      console.log("Something went wrong!!")
+    }
+  }
 };
